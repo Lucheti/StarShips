@@ -33,7 +33,6 @@ public class Store {
         getters.put(typeSafeState, () -> entityList);
         adders.put(typeSafeState, entityList::add);
         deleters.put(typeSafeState, entityList::remove);
-
     }
 
     @SuppressWarnings("unchecked")

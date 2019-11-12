@@ -1,4 +1,5 @@
 package edu.austral.starship.base.abstracts;
 
-public class Observer {
+public interface Observer<T> {
+    void update(T t);
 }

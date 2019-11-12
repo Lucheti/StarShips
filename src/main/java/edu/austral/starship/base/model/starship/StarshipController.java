@@ -45,15 +45,4 @@ public class StarshipController {
         keySet.put(keys[6], starShip::shoot);
         keySet.put(keys[7], starShip::changeGun);
     }
-
-    private void createStarship2(){
-        StarShip starShip = new StarShip(800,800);
-        Store.addToState(TypeSafeState.STARSHIPS,starShip);
-        keySet.put(38, starShip::moveUp);
-        keySet.put(37, starShip::moveLeft);
-        keySet.put(40, starShip::moveDown);
-        keySet.put(39, starShip::moveRight);
-        keySet.put(157, starShip::shoot);
-        keySet.put((int)'/', starShip::changeGun);
-    }
 }

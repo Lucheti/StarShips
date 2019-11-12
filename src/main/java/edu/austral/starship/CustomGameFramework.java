@@ -6,6 +6,7 @@ import edu.austral.starship.base.collision.Collisionable;
 import edu.austral.starship.base.framework.GameFramework;
 import edu.austral.starship.base.framework.ImageLoader;
 import edu.austral.starship.base.framework.WindowSettings;
+import edu.austral.starship.base.interfaces.Storeable;
 import edu.austral.starship.base.model.*;
 import edu.austral.starship.base.model.guns.GunController;
 import edu.austral.starship.base.model.meteor.Meteor;
@@ -75,14 +76,8 @@ public class CustomGameFramework implements GameFramework {
 
     @SuppressWarnings("unchecked")
     private void updateView(PGraphics graphics){
-        ((List<StarShip>) Store.getState(TypeSafeState.STARSHIPS)).forEach(starShip -> {
+        ((List<Storeable>) Store.getAllState()).forEach(starShip -> {
             graphics.image(visualController.getImage(starShip.getType()),starShip.getX(),starShip.getY());
-        });
-        ((List<Meteor>)store.getState(TypeSafeState.METEORS)).forEach(meteor -> {
-            graphics.image(visualController.getImage(meteor.getType()),meteor.getX(),meteor.getY());
-        });
-        ((List<Shot>) Store.getState(TypeSafeState.SHOTS)).forEach(shot -> {
-            graphics.image(visualController.getImage(shot.getType()),shot.getX(),shot.getY());
         });
     }
 

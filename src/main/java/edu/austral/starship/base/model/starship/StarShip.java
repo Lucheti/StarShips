@@ -1,6 +1,8 @@
 package edu.austral.starship.base.model.starship;
 
+import edu.austral.starship.base.abstracts.Observer;
 import edu.austral.starship.base.interfaces.CollisionableVisitor;
+import edu.austral.starship.base.model.Store;
 import edu.austral.starship.base.model.guns.Gun;
 import edu.austral.starship.base.interfaces.Storeable;
 import edu.austral.starship.base.interfaces.UserMoveable;
@@ -12,6 +14,9 @@ import edu.austral.starship.base.model.shot.Shot;
 import edu.austral.starship.base.vector.Vector2;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 //Collisionable Collisionable
 public class StarShip implements CollisionableVisitor, UserMoveable, Storeable {
     Vector2 vector;
@@ -19,11 +24,14 @@ public class StarShip implements CollisionableVisitor, UserMoveable, Storeable {
     float yAcceleration = 0;
     Gun gun;
     int life;
+    int score = 0;
+    List<Observer<StarShip>> observerList;
 
     public StarShip(int x, int y) {
         this.vector = new Vector2(x,y);
         this.gun = new BasicGun();
         this.life = 10;
+        this.observerList = new ArrayList<>();
     }
 
     @Override
@@ -57,7 +65,9 @@ public class StarShip implements CollisionableVisitor, UserMoveable, Storeable {
     }
 
     void move(){
-        this.vector = new Vector2((vector.getX() + xAcceleration), (vector.getY() + yAcceleration));
+        Vector2 newPosition = new Vector2((vector.getX() + xAcceleration), (vector.getY() + yAcceleration));
+        if (!newPosition.isOutOfBounds())
+            this.vector = new Vector2((vector.getX() + xAcceleration), (vector.getY() + yAcceleration));
     }
 
     void shoot() {
@@ -76,6 +86,7 @@ public class StarShip implements CollisionableVisitor, UserMoveable, Storeable {
     @Override
     public void collisionedWith(CollisionableVisitor collisionable) {
         collisionable.collide(this);
+        loseLife();
     }
 
     @Override
@@ -90,10 +101,20 @@ public class StarShip implements CollisionableVisitor, UserMoveable, Storeable {
 
     @Override
     public void collide(Meteor meteor) {
-        System.out.println("auch");
+
+
     }
 
     public void loseLife() {
         this.life -= 1;
+        observerList.forEach( o -> o.update(this));
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    void addObserver(Observer<StarShip> observer){
+        observerList.add(observer);
     }
 }

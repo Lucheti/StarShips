@@ -28,8 +28,7 @@ public class MeteorController {
     }
 
     private void spawnMeteor(){
-//        if (RandomGenerator.getRandom(1) < Store.getTime() / 5000000){
-        if (RandomGenerator.getRandom() < 0.001){
+        if (RandomGenerator.getRandom() < Store.getTime() / 1000000){
             if (RandomGenerator.getBoolean(.5)){
                 if(RandomGenerator.getBoolean(.5)) createMeteor(1005,RandomGenerator.getRandom(1005));
                 else createMeteor(-5,RandomGenerator.getRandom(1005));
