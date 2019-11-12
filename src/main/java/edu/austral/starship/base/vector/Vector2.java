@@ -6,7 +6,7 @@ public class Vector2 {
     private final float x;
     private final float y;
 
-    private Vector2(float x, float y) {
+    public Vector2(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -21,6 +21,8 @@ public class Vector2 {
         return new Vector2((float) (x * cos(angle) - y * sin(angle)), (float) (x * sin(angle) + y * cos(angle)));
     }
 
+    public Vector2 divide(float scalar) {return new Vector2(x/scalar,y/scalar);}
+
     public float module() { return (float) Math.pow(Math.pow(x, 2) + Math.pow(y, 2), 0.5);}
 
     public Vector2 unitary() {
@@ -34,5 +36,17 @@ public class Vector2 {
 
     public static Vector2 vectorFromModule(float module, float angle) {
         return new Vector2((float) (module * cos(angle)), (float) (module * sin(angle)));
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public boolean isOutOfBounds(){
+        return !(x < 1050 && x > -50 && y < 1050 && y > -50);
     }
 }

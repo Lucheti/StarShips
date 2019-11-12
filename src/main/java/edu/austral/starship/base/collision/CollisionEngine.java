@@ -6,10 +6,9 @@ import java.util.List;
 
 public class CollisionEngine<T extends Collisionable<T>> {
     private static <T> T head(List<T> list) { return list.get(0);}
-
     private static <T> List<T> tail(List<T> list) { return list.subList(1, list.size());}
 
-    void checkCollisions(List<T> collisionables) {
+    public void checkCollisions(List<T> collisionables) {
         if (collisionables.isEmpty()) return;
 
         checkCollisions(head(collisionables), tail(collisionables));
@@ -23,7 +22,6 @@ public class CollisionEngine<T extends Collisionable<T>> {
 
     private void checkCollisions(T current, List<T> collisionables) {
         if (collisionables.isEmpty()) return;
-
         collisionables
             .forEach(collisionable -> {
                 if (testIntersection(current.getShape(), collisionable.getShape())) {

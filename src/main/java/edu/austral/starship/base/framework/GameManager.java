@@ -11,6 +11,7 @@ public class GameManager extends PApplet {
     private final GameFramework gameFramework = new CustomGameFramework();
     private final Set<Integer> keySet = new HashSet<>();
 
+
     public void settings() {
         gameFramework.setup(new WindowSettings(this), new ImageLoader(this));
     }
